@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="11a01b2b-cce3-4669-982f-1e5fbbc26c91" name="Changes" comment="" />
+    <list default="true" id="11a01b2b-cce3-4669-982f-1e5fbbc26c91" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/wimtorg-plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/wimtorq-plugin.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,10 +20,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2CXSxM4pwrM1hqdG6Ysedy0yNbC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,7 +64,7 @@
       <workItem from="1658947722696" duration="2626000" />
       <workItem from="1658991784700" duration="582000" />
       <workItem from="1659012015154" duration="6053000" />
-      <workItem from="1659022721111" duration="25476000" />
+      <workItem from="1659022721111" duration="25911000" />
     </task>
     <servers />
   </component>
