@@ -10,51 +10,37 @@
  **/
 
 
+use Stripe\StripeClient;
+
 include plugin_dir_path( __FILE__ ) . 'includes/menu.php';
 include plugin_dir_path( __FILE__ ) . 'includes/page-settings.php';
 include plugin_dir_path( __FILE__ ) . 'modules/stripe-php/init.php';
 
-
-function add_mystyle_script() {
-	wp_enqueue_script( 'wimtorq_stripe', plugin_dir_url(__FILE__). 'js/script.js', array(), '1.0', true );
-	wp_enqueue_style( 'mystyle', plugin_dir_url(__FILE__). 'css/style.css', array(), '1.0', true);
+add_action('admin_enqueue_scripts','mycustome_admin_style');
+function mycustome_admin_style (){
+	wp_enqueue_style( 'mystyle', plugin_dir_url(__FILE__). 'css/style.css');
 }
-
 function add_datatables_scripts() {
-	wp_register_script('datatables', 'https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js', array('jquery'), true);
-	wp_enqueue_script('datatables');
-
-	wp_register_script('datatables_bootstrap', 'https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js', array('jquery'), true);
-	wp_enqueue_script('datatables_bootstrap');
-}
-
-function add_datatables_style() {
-	wp_register_style('bootstrap_style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css');
-	wp_enqueue_style('bootstrap_style');
-
-	wp_register_style('datatables_style', 'https://cdn.datatables.net/v/bs5/jq-3.6.0/datatables.min.css');
-	wp_enqueue_style('datatables_style');
+	wp_enqueue_script('datatables', 'https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js', array('jquery'), true);
+    wp_enqueue_script('datatables_bootstrap', 'https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js', array('jquery'), true);
+	wp_enqueue_script( 'wimtorq_stripe', plugin_dir_url(__FILE__). 'js/main.js', array(), '1.0', true );
+	wp_enqueue_style('bootstrap_style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css');
+	wp_enqueue_style('datatables_style', 'https://cdn.datatables.net/v/bs5/jq-3.6.0/datatables.min.css');
 }
 
 add_action('wp_enqueue_scripts', 'add_datatables_scripts');
-add_action('wp_enqueue_scripts', 'add_datatables_style');
-add_action( 'wp_enqueue_scripts', 'add_mystyle_script' );
 
-add_shortcode( "wimtorq-stripe", "wimtorq_stripe_api" );
+
+
+
+
+add_shortcode( "wimtorq_stripe", "wimtorq_stripe_api" );
 function wimtorq_stripe_api() {
 
-
-	$stripe = new \Stripe\StripeClient(
-		get_option('stripe_api_secret')
-	);
-    if ($stripe !== null){
-	$str_inf = $stripe->prices->all();
-    $i=1;
-    ob_start();
-
+	ob_start();
     ?>
 
-	<table id="movietable" class="table table-striped table-hover">
+	<table id="wimtorq-table" class="table table-striped table-hover">
 		<thead>
 		<tr>
 			<th>S/N</th>
@@ -63,26 +49,81 @@ function wimtorq_stripe_api() {
 			<th>Price</th>
 		</tr>
 		</thead>
-
-        <tbody>
-        <?php
-		foreach ( $str_inf  as $datum ) {
-            $name = ($datum['nickname'] !== null)?$datum['nickname'] :$datum['product'];
- ?>    <tr>
-            <td><?php echo $i ?></td>
-            <td><?php echo $name ?></td>
-            <td><?php echo strtoupper($datum['currency']) ?></td>
-            <td><?php echo $datum['unit_amount']/100 ?></td>
-        </tr>
-
-        <?php    $i++; } ?>
-        </tbody>
 	</table>
-	<?php
+<?php
 	return ob_get_clean();
-    }else {
-        throw new Exception('Invalid Stripe Secret Key');
-    }
+}
+
+function filter($input, $array) {
+	$input = preg_quote($input, '~'); // don't forget to quote input string!
+
+	return preg_grep('~' . $input . '~', $array);
+}
+
+add_action('wp_ajax_datatables_endpoint', 'wimtorq_fetch_stripe_data'); //logged in
+add_action('wp_ajax_no_priv_datatables_endpoint', 'wimtorq_fetch_stripe_data'); //not logged in
+function wimtorq_fetch_stripe_data(){
+	$draw = $_POST['draw'];
+	$row = $_POST['start'];
+	$rowperpage = $_POST['length'];
+	$columnIndex = $_POST['order']["0"]["column"];
+	$columnName = $_POST['columns'][$columnIndex]["data"];
+	$columnOrder = $_POST['order']["0"]["dir"];
+	$searchValue = $_POST['search']['value']; // Search value
+	$columns = $_POST['columns'];
+
+	$data = [];
+	$init = new StripeClient(get_option('stripe_api_secret'));
+	$stripe = $init->prices->all();
+	$i = 1;
+	$recordTotal = count($stripe);
+
+
+	//$request['search']['value'] <= Value from search
+
+
+	if (empty($searchValue)) {
+
+		foreach ($stripe as $value):
+
+			$data[] = array(
+				"id" => $i,
+				"price_name" => $value["product"],
+				"price_currency" => $value["currency"],
+				"price_amount" => $value["unit_amount"] / 100
+			);
+			$i++;
+		endforeach;
+	}
+    elseif (!empty($searchValue)){
+
+
+		$ssearch = filter($searchValue, $stripe["data"]);
+		foreach ($ssearch as $value):
+
+			$data[] = array(
+				"id" => $i,
+				"price_name" => $value["product"],
+				"price_currency" => $value["currency"],
+				"price_amount" => $value["unit_amount"] / 100
+			);
+			$i++;
+		endforeach;
+
+	}
+	else {
+		$data[] = array();
+	}
+
+
+	$return = array(
+		"draw" => !empty ($draw) ? intval($draw) : 0,
+		'recordsTotal' =>!empty( $recordTotal)?$recordTotal:0,
+		'recordsFiltered' => !empty( $recordTotal)?$recordTotal:0,
+		'data' => !empty($data)?$data:"",
+	);
+
+	wp_send_json($return);
 }
 
 

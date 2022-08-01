@@ -8,7 +8,7 @@ if( !function_exists("wimtorq_settings") ) {
 
 	function wimtorq_settings(){
 		?>
-<h1>Wimtorq Plugin Settings</h1>
+<h1>wimtorq Plugin Settings</h1>
 		<div class="mycontainer">
 
 	<form method="post">

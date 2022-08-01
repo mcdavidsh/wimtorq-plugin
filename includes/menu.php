@@ -2,8 +2,8 @@
 add_action( 'admin_menu', 'wimtorq_admin_menu' );
 if (!function_exists('wimtorq_admin_menu')) {
 	function wimtorq_admin_menu() {
-		$page_title = 'The Wimtorq Plugin';
-		$menu_title = 'The Wimtorq Plugin';
+		$page_title = 'The wimtorq Plugin';
+		$menu_title = 'The wimtorq Plugin';
 		$capability = 'manage_options';
 		$menu_slug  = 'wimtorq-plugin';
 		$function   = 'wimtorq_settings';

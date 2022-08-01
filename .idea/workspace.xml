@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11a01b2b-cce3-4669-982f-1e5fbbc26c91" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/wimtorg-plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/wimtorq-plugin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,21 +33,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/xampp/htdocs/projects/wordpress/wp-content/plugins/wimtorq-plugin/modules",
-    "list.type.of.created.stylesheet": "CSS",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/projects/wordpress/wp-content/plugins&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\projects\wordpress\wp-content\plugins\wimtorq-plugin\modules" />
       <recent name="C:\xampp\htdocs\projects\wordpress\wp-content\plugins" />
+      <recent name="C:\xampp\htdocs\projects\wordpress\wp-content\plugins\wimtorq-plugin\modules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\projects\wordpress\wp-content\plugins\wimtorq-plugin\css" />
@@ -64,7 +65,9 @@
       <workItem from="1658947722696" duration="2626000" />
       <workItem from="1658991784700" duration="582000" />
       <workItem from="1659012015154" duration="6053000" />
-      <workItem from="1659022721111" duration="25911000" />
+      <workItem from="1659022721111" duration="26007000" />
+      <workItem from="1659290006551" duration="2999000" />
+      <workItem from="1659341409326" duration="7394000" />
     </task>
     <servers />
   </component>
